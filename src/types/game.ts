@@ -27,6 +27,12 @@ export type GameSession = {
   currentScenario: Scenario | null
 }
 
+export type DecisionHistoryEntry = {
+  scenarioOrder: number
+  scenarioTitle: string
+  optionText: string
+}
+
 export type StartGameRequest = {
   playerName: string
 }

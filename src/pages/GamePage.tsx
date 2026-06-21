@@ -3,7 +3,7 @@ import { chooseOption } from '../api/gameApi'
 import DecisionCard from '../components/DecisionCard'
 import DecisionResultModal from '../components/DecisionResultModal'
 import ResultPage from './ResultPage'
-import type { GameSession } from '../types/game'
+import type { DecisionHistoryEntry, GameSession } from '../types/game'
 import { getQuarter } from '../utils/gameProgress'
 
 type GamePageProps = {
@@ -271,6 +271,9 @@ function GamePage({ initialGame, onRestart, onViewRanking }: GamePageProps) {
   const [decisionResult, setDecisionResult] = useState<DecisionResult | null>(
     null
   )
+  const [decisionHistory, setDecisionHistory] = useState<
+    DecisionHistoryEntry[]
+  >([])
   const [scenarioAnimationKey, setScenarioAnimationKey] = useState(
     initialGame.currentScenarioOrder
   )
@@ -283,6 +286,7 @@ function GamePage({ initialGame, onRestart, onViewRanking }: GamePageProps) {
       const selectedOption = game.currentScenario?.options.find(
         (option) => option.id === optionId
       )
+      const currentScenario = game.currentScenario
       const result = await chooseOption({
         gameSessionId: game.id,
         optionId,
@@ -294,6 +298,16 @@ function GamePage({ initialGame, onRestart, onViewRanking }: GamePageProps) {
         consequence: result.consequence,
         deltas,
       })
+      if (selectedOption && currentScenario) {
+        setDecisionHistory((history) => [
+          ...history,
+          {
+            scenarioOrder: currentScenario.order,
+            scenarioTitle: currentScenario.title,
+            optionText: selectedOption.text,
+          },
+        ])
+      }
       setGame(result.gameSession)
       setScenarioAnimationKey(result.gameSession.currentScenarioOrder)
     } catch {
@@ -307,6 +321,7 @@ function GamePage({ initialGame, onRestart, onViewRanking }: GamePageProps) {
     return (
       <ResultPage
         game={game}
+        decisionHistory={decisionHistory}
         onRestart={onRestart}
         onViewRanking={onViewRanking}
       />
