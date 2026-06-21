@@ -88,8 +88,94 @@ input {
   }
 }
 
+.stat-feedback-positive {
+  animation: stat-positive-flash 1400ms ease-out;
+}
+
+.stat-feedback-negative {
+  animation: stat-negative-flash 1400ms ease-out;
+}
+
+.result-panel-enter {
+  animation: result-panel-enter 360ms ease-out;
+}
+
+.result-delta-pill {
+  animation: result-delta-enter 420ms ease-out both;
+}
+
+.scenario-transition {
+  animation: scenario-transition 420ms ease-out;
+}
+
+@keyframes stat-positive-flash {
+  0% {
+    border-color: rgb(110 231 183 / 0.75);
+    background: rgb(16 185 129 / 0.16);
+  }
+
+  100% {
+    background: rgb(15 23 42 / 0.8);
+  }
+}
+
+@keyframes stat-negative-flash {
+  0% {
+    border-color: rgb(252 165 165 / 0.75);
+    background: rgb(239 68 68 / 0.16);
+  }
+
+  100% {
+    background: rgb(15 23 42 / 0.8);
+  }
+}
+
+@keyframes result-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes result-delta-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes scenario-transition {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .brand-marquee-track {
+    animation: none;
+  }
+
+  .stat-feedback-positive,
+  .stat-feedback-negative,
+  .result-panel-enter,
+  .result-delta-pill,
+  .scenario-transition {
     animation: none;
   }
 }

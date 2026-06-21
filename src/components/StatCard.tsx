@@ -1,7 +1,11 @@
+type StatTrend = 'positive' | 'negative' | 'neutral'
+
 type StatCardProps = {
   label: string
   value: number
   code: string
+  delta?: number
+  trend?: StatTrend
 }
 
 function getStatus(value: number) {
@@ -31,13 +35,29 @@ function getStatus(value: number) {
   }
 }
 
-function StatCard({ label, value, code }: StatCardProps) {
+function getTrendClass(trend: StatTrend) {
+  if (trend === 'positive') return 'stat-feedback-positive'
+  if (trend === 'negative') return 'stat-feedback-negative'
+
+  return ''
+}
+
+function StatCard({
+  label,
+  value,
+  code,
+  delta = 0,
+  trend = 'neutral',
+}: StatCardProps) {
   const status = getStatus(value)
   const safeValue = Math.max(0, Math.min(100, value))
+  const deltaLabel = delta > 0 ? `+${delta}` : `${delta}`
 
   return (
     <article
-      className={`rounded-lg border ${status.border} bg-slate-900/80 p-4 shadow-lg shadow-slate-950/20`}
+      className={`rounded-lg border ${status.border} ${getTrendClass(
+        trend
+      )} bg-slate-900/80 p-4 shadow-lg shadow-slate-950/20 transition-colors duration-500`}
     >
       <div className="flex items-center justify-between">
         <p className="text-sm font-medium text-slate-300">{label}</p>
@@ -47,7 +67,18 @@ function StatCard({ label, value, code }: StatCardProps) {
       </div>
 
       <div className="mt-4 flex items-end justify-between gap-3">
-        <p className="text-3xl font-bold text-white">{safeValue}</p>
+        <div className="flex items-end gap-2">
+          <p className="text-3xl font-bold text-white">{safeValue}</p>
+          {delta !== 0 && (
+            <span
+              className={`pb-1 text-sm font-black ${
+                delta > 0 ? 'text-emerald-200' : 'text-red-200'
+              }`}
+            >
+              {deltaLabel}
+            </span>
+          )}
+        </div>
         <p className={`text-xs font-semibold uppercase tracking-wide ${status.text}`}>
           {status.label}
         </p>
@@ -55,7 +86,7 @@ function StatCard({ label, value, code }: StatCardProps) {
 
       <div className="mt-4 h-2 rounded-full bg-slate-800">
         <div
-          className={`h-2 rounded-full ${status.color}`}
+          className={`h-2 rounded-full ${status.color} transition-[width] duration-700 ease-out`}
           style={{ width: `${safeValue}%` }}
         />
       </div>
