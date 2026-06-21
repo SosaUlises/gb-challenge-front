@@ -48,7 +48,7 @@ function DecisionCard({ option, index, disabled, onChoose }: DecisionCardProps) 
       type="button"
       onClick={() => onChoose(option.id)}
       disabled={disabled}
-      className={`group relative flex min-h-[17rem] overflow-hidden rounded-2xl border p-6 text-left shadow-xl shadow-slate-950/25 transition duration-300 hover:-translate-y-1.5 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-amber-200/70 disabled:cursor-not-allowed disabled:opacity-55 disabled:hover:translate-y-0 ${profile.className}`}
+      className={`group relative flex min-h-[21rem] overflow-hidden rounded-2xl border p-8 text-left shadow-xl shadow-slate-950/25 transition duration-300 hover:-translate-y-1.5 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-amber-200/70 disabled:cursor-not-allowed disabled:opacity-55 disabled:hover:translate-y-0 md:p-9 ${profile.className}`}
     >
       <span
         className={`absolute inset-x-0 top-0 h-1 ${profile.line}`}
@@ -70,19 +70,19 @@ function DecisionCard({ option, index, disabled, onChoose }: DecisionCardProps) 
             {profile.intent}
           </p>
 
-          <h3 className="mt-5 text-xl font-semibold leading-tight text-white md:text-2xl">
+          <h3 className="mt-6 text-2xl font-semibold leading-tight text-white md:text-3xl">
             {option.text}
           </h3>
 
-          <p className="mt-4 text-sm font-medium leading-6 text-slate-300">
+          <p className="mt-6 text-sm font-medium leading-6 text-slate-300 md:text-base md:leading-7">
             {profile.summary}
           </p>
         </div>
 
         <p
-          className="mt-7 inline-flex w-fit items-center rounded-full border border-amber-200/35 bg-amber-200/10 px-3.5 py-2 text-sm font-black text-amber-100 transition duration-200 group-hover:border-amber-200/80 group-hover:bg-amber-200/15"
+          className="mt-8 inline-flex w-fit items-center rounded-full border border-amber-200/35 bg-amber-200/10 px-4 py-2.5 text-sm font-black text-amber-100 transition duration-200 group-hover:border-amber-200/80 group-hover:bg-amber-200/15"
         >
-          Ejecutar plan
+          Aplicar estrategia
           <span className="ml-2 transition-transform duration-200 group-hover:translate-x-1">
             -&gt;
           </span>

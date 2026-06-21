@@ -104,6 +104,18 @@ input {
   animation: result-delta-enter 420ms ease-out both;
 }
 
+.result-modal-backdrop {
+  animation: result-modal-backdrop-enter 180ms ease-out both;
+}
+
+.result-modal-panel {
+  animation: result-modal-panel-enter 260ms ease-out both;
+}
+
+.result-impact-card {
+  animation: result-impact-card-enter 520ms ease-out both;
+}
+
 .scenario-transition {
   animation: scenario-transition 420ms ease-out;
 }
@@ -154,6 +166,45 @@ input {
   }
 }
 
+@keyframes result-modal-backdrop-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes result-modal-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes result-impact-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+
+  58% {
+    opacity: 1;
+    transform: translateY(0) scale(1.015);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes scenario-transition {
   from {
     opacity: 0;
@@ -175,6 +226,9 @@ input {
   .stat-feedback-negative,
   .result-panel-enter,
   .result-delta-pill,
+  .result-modal-backdrop,
+  .result-modal-panel,
+  .result-impact-card,
   .scenario-transition {
     animation: none;
   }
