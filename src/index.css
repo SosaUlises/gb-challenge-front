@@ -1,1 +1,103 @@
 @import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #020617;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #020617;
+  font-family:
+    Sora, "Plus Jakarta Sans", Manrope, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.brand-marquee {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.brand-marquee::before,
+.brand-marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 96px;
+  height: 100%;
+  pointer-events: none;
+}
+
+.brand-marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, #020617, rgb(2 6 23 / 0));
+}
+
+.brand-marquee::after {
+  right: 0;
+  background: linear-gradient(270deg, #020617, rgb(2 6 23 / 0));
+}
+
+.brand-marquee-track {
+  display: flex;
+  width: max-content;
+  min-width: 100%;
+  gap: 18px;
+  animation: brand-marquee 58s linear infinite;
+}
+
+.brand-marquee-prominent {
+  border-radius: 12px;
+}
+
+.brand-logo-card {
+  display: inline-flex;
+  min-width: 190px;
+  height: 104px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(148 163 184 / 0.18);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.96), rgb(226 232 240 / 0.92));
+  padding: 20px 28px;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.8),
+    0 18px 40px rgb(0 0 0 / 0.22);
+}
+
+.brand-logo-image {
+  display: block;
+  max-width: 132px;
+  max-height: 56px;
+  object-fit: contain;
+}
+
+@keyframes brand-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee-track {
+    animation: none;
+  }
+}
