@@ -92,13 +92,13 @@ function HomePage({ onGameStarted }: HomePageProps) {
 
         <div className="mx-auto flex min-h-screen max-w-7xl flex-col px-4 py-4 sm:px-6 sm:py-6">
           <header className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex min-w-0 items-center gap-3">
+            <div className="flex min-w-0 flex-1 items-center gap-3">
               <img
                 src="/grupo-blanco-logo.png"
                 alt="Grupo Blanco"
                 className="h-10 w-10 rounded-full sm:h-12 sm:w-12"
               />
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-slate-300 sm:text-sm sm:tracking-[0.18em]">
+              <p className="min-w-0 text-[0.68rem] font-bold uppercase leading-4 tracking-[0.12em] text-slate-300 sm:text-sm sm:tracking-[0.18em]">
                 Simulador de Gestión Empresarial
               </p>
             </div>
@@ -115,7 +115,7 @@ function HomePage({ onGameStarted }: HomePageProps) {
                 Director General
               </div>
 
-              <h1 className="mt-6 max-w-5xl text-[2.65rem] font-black uppercase leading-[0.92] tracking-tight sm:text-6xl md:text-8xl">
+              <h1 className="mt-6 max-w-5xl text-[2.45rem] font-black uppercase leading-[0.94] tracking-tight sm:text-6xl md:text-8xl">
                 Asumí la Dirección General de Grupo Blanco
               </h1>
 
@@ -123,7 +123,7 @@ function HomePage({ onGameStarted }: HomePageProps) {
                 {heroMetrics.map((metric) => (
                   <div
                     key={metric.label}
-                    className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-slate-300 sm:text-sm sm:tracking-[0.16em]"
+                    className="flex min-w-0 items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-slate-300 sm:text-sm sm:tracking-[0.16em]"
                   >
                     <span className="text-lg sm:text-xl" aria-hidden="true">
                       {metric.icon}
@@ -241,7 +241,7 @@ function HomePage({ onGameStarted }: HomePageProps) {
               <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">
                 Ranking global
               </p>
-              <h2 className="mt-4 max-w-4xl text-3xl font-black uppercase leading-none text-white sm:text-4xl md:text-7xl">
+              <h2 className="mt-4 max-w-4xl text-[2rem] font-black uppercase leading-none text-white sm:text-4xl md:text-7xl">
                 ¿Podrás superar a otros directores?
               </h2>
               <p className="mt-4 text-lg font-bold text-cyan-100 sm:mt-5 sm:text-xl">

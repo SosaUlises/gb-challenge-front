@@ -75,14 +75,14 @@ function DecisionResultModal({
   }, [onContinue])
 
   return (
-    <div className="result-modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-slate-950/82 px-5 py-6 backdrop-blur-md">
+    <div className="result-modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-slate-950/82 px-3 py-4 backdrop-blur-md sm:px-5 sm:py-6">
       <section
-        className="result-modal-panel max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-3xl border border-amber-200/25 bg-[linear-gradient(145deg,rgba(15,23,42,0.98),rgba(2,6,23,0.98))] shadow-2xl shadow-amber-950/25"
+        className="result-modal-panel max-h-[94vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-amber-200/25 bg-[linear-gradient(145deg,rgba(15,23,42,0.98),rgba(2,6,23,0.98))] shadow-2xl shadow-amber-950/25 sm:rounded-3xl"
         role="dialog"
         aria-modal="true"
         aria-labelledby="decision-result-title"
       >
-        <div className="border-b border-white/10 px-6 py-6 md:px-8">
+        <div className="border-b border-white/10 px-5 py-5 sm:px-6 sm:py-6 md:px-8">
           <p
             id="decision-result-title"
             className="text-xs font-black uppercase tracking-[0.24em] text-amber-100"
@@ -90,19 +90,19 @@ function DecisionResultModal({
             Decisión tomada
           </p>
           {decisionText && (
-            <h2 className="mt-3 text-2xl font-black leading-tight text-white md:text-3xl">
+            <h2 className="mt-3 text-xl font-black leading-tight text-white sm:text-2xl md:text-3xl">
               {decisionText}
             </h2>
           )}
         </div>
 
-        <div className="px-6 py-6 md:px-8">
+        <div className="px-5 py-5 sm:px-6 sm:py-6 md:px-8">
           <div
-            className={`inline-flex max-w-full items-center rounded-full border px-3.5 py-2 text-sm font-black ${summary.className}`}
+            className={`flex max-w-full flex-col gap-1 rounded-2xl border px-3.5 py-2 text-sm font-black sm:inline-flex sm:flex-row sm:items-center ${summary.className}`}
           >
             <span>{summary.label}</span>
-            <span className="mx-2 h-1 w-1 rounded-full bg-current opacity-60" />
-            <span className="truncate text-slate-100/90">
+            <span className="hidden h-1 w-1 rounded-full bg-current opacity-60 sm:block" />
+            <span className="text-slate-100/90">
               {summary.description}
             </span>
           </div>
@@ -151,11 +151,11 @@ function DecisionResultModal({
 
         </div>
 
-        <div className="flex justify-end border-t border-white/10 px-6 py-5 md:px-8">
+        <div className="flex justify-end border-t border-white/10 px-5 py-5 sm:px-6 md:px-8">
           <button
             type="button"
             onClick={onContinue}
-            className="rounded-full border border-amber-200/45 bg-amber-200/12 px-5 py-3 text-sm font-black text-amber-100 shadow-lg shadow-amber-950/20 transition duration-200 hover:-translate-y-0.5 hover:border-amber-100 hover:bg-amber-200/20 hover:shadow-amber-950/35 focus:outline-none focus:ring-2 focus:ring-amber-200/70"
+            className="w-full rounded-full border border-amber-200/45 bg-amber-200/12 px-5 py-3 text-sm font-black text-amber-100 shadow-lg shadow-amber-950/20 transition duration-200 hover:-translate-y-0.5 hover:border-amber-100 hover:bg-amber-200/20 hover:shadow-amber-950/35 focus:outline-none focus:ring-2 focus:ring-amber-200/70 sm:w-auto"
           >
             Continuar -&gt;
           </button>

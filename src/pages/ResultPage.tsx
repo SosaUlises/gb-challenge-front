@@ -195,20 +195,20 @@ function ResultPage({
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.12),transparent_34%),linear-gradient(135deg,#020617_0%,#0f172a_48%,#020617_100%)] text-white">
-      <section className="mx-auto max-w-7xl px-5 py-8 md:px-6 md:py-10">
+      <section className="mx-auto max-w-7xl px-4 py-7 sm:px-5 md:px-6 md:py-10">
         <header className="border-b border-white/10 pb-8">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.28em] text-amber-100">
               GESTIÓN FINALIZADA
             </p>
-            <h1 className="mt-4 max-w-5xl text-5xl font-black uppercase leading-[0.88] text-white md:text-7xl lg:text-8xl">
+            <h1 className="mt-4 max-w-5xl text-[2.65rem] font-black uppercase leading-[0.9] text-white sm:text-5xl md:text-7xl lg:text-8xl">
               {directorProfile.title}
             </h1>
-            <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-300 md:text-xl">
+            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-300 sm:text-lg md:text-xl md:leading-8">
               {directorProfile.summary}
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <div className="rounded-2xl border border-amber-200/25 bg-amber-200/[0.07] px-5 py-4">
+            <div className="mt-7 grid gap-3 sm:grid-cols-3">
+              <div className="rounded-2xl border border-amber-200/25 bg-amber-200/[0.07] px-4 py-4 sm:px-5">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-100">
                   Puntaje final
                 </p>
@@ -216,7 +216,7 @@ function ResultPage({
                   {game.finalScore}
                 </p>
               </div>
-              <div className="rounded-2xl border border-cyan-200/20 bg-cyan-200/[0.055] px-5 py-4">
+              <div className="rounded-2xl border border-cyan-200/20 bg-cyan-200/[0.055] px-4 py-4 sm:px-5">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-100">
                   Ranking global
                 </p>
@@ -224,7 +224,7 @@ function ResultPage({
                   {rankingSummary.position ? `#${rankingSummary.position}` : '-'}
                 </p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.035] px-5 py-4">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-4 sm:px-5">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
                   Rendimiento
                 </p>
@@ -241,23 +241,23 @@ function ResultPage({
         </header>
 
         <section className="mt-8">
-          <article className="rounded-2xl border border-white/10 bg-white/[0.035] p-6 shadow-2xl shadow-slate-950/25">
+          <article className="rounded-2xl border border-white/10 bg-white/[0.035] p-5 shadow-2xl shadow-slate-950/25 sm:p-6">
             <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-100">
               Perfil de gestión
             </p>
-            <p className="mt-4 max-w-4xl text-lg font-medium leading-8 text-slate-200">
+            <p className="mt-4 max-w-4xl text-base font-medium leading-7 text-slate-200 sm:text-lg sm:leading-8">
               {directorProfile.profile}
             </p>
           </article>
         </section>
 
         <section className="mt-8 grid gap-5 lg:grid-cols-2">
-          <article className="rounded-2xl border border-emerald-200/25 bg-emerald-200/[0.07] p-6 shadow-2xl shadow-emerald-950/15">
+          <article className="rounded-2xl border border-emerald-200/25 bg-emerald-200/[0.07] p-5 shadow-2xl shadow-emerald-950/15 sm:p-6">
             <p className="text-xs font-black uppercase tracking-[0.24em] text-emerald-100">
               ⭐ Mayor acierto
             </p>
-            <div className="mt-4 flex items-end justify-between gap-4">
-              <h2 className="text-3xl font-black">{strongest.label}</h2>
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+              <h2 className="text-2xl font-black sm:text-3xl">{strongest.label}</h2>
               <p className="text-5xl font-black tabular-nums">
                 {strongest.value}
               </p>
@@ -267,12 +267,12 @@ function ResultPage({
             </p>
           </article>
 
-          <article className="rounded-2xl border border-red-200/20 bg-red-200/[0.055] p-6 shadow-2xl shadow-red-950/15">
+          <article className="rounded-2xl border border-red-200/20 bg-red-200/[0.055] p-5 shadow-2xl shadow-red-950/15 sm:p-6">
             <p className="text-xs font-black uppercase tracking-[0.24em] text-red-100">
               ⚠ Mayor desafío
             </p>
-            <div className="mt-4 flex items-end justify-between gap-4">
-              <h2 className="text-3xl font-black">{weakest.label}</h2>
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+              <h2 className="text-2xl font-black sm:text-3xl">{weakest.label}</h2>
               <p className="text-5xl font-black tabular-nums">
                 {weakest.value}
               </p>
@@ -308,14 +308,14 @@ function ResultPage({
           <button
             type="button"
             onClick={onViewRanking}
-            className="rounded-full bg-white px-6 py-4 text-sm font-black text-slate-950 transition hover:bg-cyan-100"
+            className="w-full rounded-full bg-white px-6 py-4 text-sm font-black text-slate-950 transition hover:bg-cyan-100 sm:w-auto"
           >
             🥇 Ver ranking global
           </button>
           <button
             type="button"
             onClick={onRestart}
-            className="rounded-full border border-amber-200/35 bg-amber-200/10 px-6 py-4 text-sm font-black text-amber-100 transition hover:border-amber-100 hover:bg-amber-200/20"
+            className="w-full rounded-full border border-amber-200/35 bg-amber-200/10 px-6 py-4 text-sm font-black text-amber-100 transition hover:border-amber-100 hover:bg-amber-200/20 sm:w-auto"
           >
             🔄 Intentar una nueva estrategia
           </button>

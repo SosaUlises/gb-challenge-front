@@ -116,28 +116,28 @@ function RankingPage({
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.12),transparent_34%),linear-gradient(135deg,#020617_0%,#0f172a_48%,#020617_100%)] text-white">
-      <section className="mx-auto max-w-7xl px-5 py-8 md:px-6 md:py-10">
+      <section className="mx-auto max-w-7xl px-4 py-7 sm:px-5 md:px-6 md:py-10">
         <header className="grid gap-8 border-b border-white/10 pb-8 lg:grid-cols-[1fr_22rem] lg:items-end">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.28em] text-amber-100">
               Competencia global
             </p>
-            <h1 className="mt-4 max-w-5xl text-5xl font-black uppercase leading-[0.88] text-white md:text-7xl lg:text-8xl">
+            <h1 className="mt-4 max-w-5xl text-[2.65rem] font-black uppercase leading-[0.9] text-white sm:text-5xl md:text-7xl lg:text-8xl">
               Ranking de directores
             </h1>
-            <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-slate-300 md:text-xl">
+            <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-300 sm:text-lg md:text-xl md:leading-8">
               Compará tu gestión contra otros jugadores y buscá entrar al Top.
               Una nueva estrategia puede cambiar toda la tabla.
             </p>
           </div>
 
-          <aside className="rounded-3xl border border-amber-200/25 bg-amber-200/[0.07] p-6 shadow-2xl shadow-amber-950/20">
+          <aside className="rounded-2xl border border-amber-200/25 bg-amber-200/[0.07] p-5 shadow-2xl shadow-amber-950/20 sm:rounded-3xl sm:p-6">
             <p className="text-xs font-black uppercase tracking-[0.24em] text-amber-100">
               🏆 Top actual
             </p>
             {topEntry ? (
               <>
-                <p className="mt-4 text-4xl font-black leading-none">
+                <p className="mt-4 text-3xl font-black leading-none sm:text-4xl">
                   #1 {getPlayerName(topEntry)}
                 </p>
                 <p className="mt-3 text-2xl font-black tabular-nums text-white">
@@ -156,7 +156,7 @@ function RankingPage({
         </header>
 
         {isLoading && (
-          <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.035] p-10 text-center">
+          <section className="mt-8 rounded-2xl border border-white/10 bg-white/[0.035] p-7 text-center sm:rounded-3xl sm:p-10">
             <p className="text-lg font-bold text-slate-300">
               Cargando competencia global...
             </p>
@@ -164,17 +164,17 @@ function RankingPage({
         )}
 
         {error && !isLoading && (
-          <section className="mt-8 rounded-3xl border border-red-200/25 bg-red-200/[0.055] p-10 text-center">
+          <section className="mt-8 rounded-2xl border border-red-200/25 bg-red-200/[0.055] p-7 text-center sm:rounded-3xl sm:p-10">
             <p className="text-lg font-bold text-red-100">{error}</p>
           </section>
         )}
 
         {!isLoading && !error && !hasRanking && (
-          <section className="mt-8 rounded-3xl border border-amber-200/25 bg-amber-200/[0.055] p-10 text-center shadow-2xl shadow-amber-950/15">
+          <section className="mt-8 rounded-2xl border border-amber-200/25 bg-amber-200/[0.055] p-7 text-center shadow-2xl shadow-amber-950/15 sm:rounded-3xl sm:p-10">
             <p className="text-5xl" aria-hidden="true">
               🏆
             </p>
-            <h2 className="mt-5 text-4xl font-black uppercase">
+            <h2 className="mt-5 text-3xl font-black uppercase sm:text-4xl">
               Todavía no hay directores en competencia
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-300">
@@ -184,7 +184,7 @@ function RankingPage({
             <button
               type="button"
               onClick={onRestart}
-              className="mt-7 rounded-full bg-white px-6 py-4 text-sm font-black text-slate-950 transition hover:bg-cyan-100"
+              className="mt-7 w-full rounded-full bg-white px-6 py-4 text-sm font-black text-slate-950 transition hover:bg-cyan-100 sm:w-auto"
             >
               Iniciar gestión 2026
             </button>
@@ -198,7 +198,7 @@ function RankingPage({
                 Podio de gestión
               </p>
               <div className="mt-5 grid gap-4 lg:grid-cols-[0.9fr_1.15fr_0.9fr] lg:items-end">
-                {[podium[1], podium[0], podium[2]].map((entry, visualIndex) => {
+                {podium.map((entry, visualIndex) => {
                   if (!entry) return null
 
                   const rankingIndex = sortedRanking.indexOf(entry)
@@ -207,8 +207,12 @@ function RankingPage({
                   return (
                     <article
                       key={entry.id ?? `${getPlayerName(entry)}-${rankingIndex}`}
-                      className={`rounded-3xl border p-6 ${style.className} ${
-                        visualIndex === 1 ? 'lg:order-none' : ''
+                      className={`rounded-2xl border p-5 sm:rounded-3xl sm:p-6 ${style.className} ${
+                        visualIndex === 0 ? 'lg:order-2' : ''
+                      } ${
+                        visualIndex === 1 ? 'lg:order-1' : ''
+                      } ${
+                        visualIndex === 2 ? 'lg:order-3' : ''
                       }`}
                     >
                       <div className="flex items-center justify-between gap-4">
@@ -249,9 +253,9 @@ function RankingPage({
                 const isTopThree = index < 3
 
                 return (
-                  <article
+              <article
                     key={entry.id ?? `${getPlayerName(entry)}-${index}`}
-                    className={`grid gap-3 border-b border-white/10 px-6 py-5 transition last:border-b-0 hover:bg-white/[0.045] md:grid-cols-[7rem_1fr_8rem_14rem_8rem] md:items-center ${
+                    className={`grid gap-3 border-b border-white/10 px-4 py-5 transition last:border-b-0 hover:bg-white/[0.045] sm:px-6 md:grid-cols-[7rem_1fr_8rem_14rem_8rem] md:items-center ${
                       isTopThree ? 'bg-amber-200/[0.025]' : ''
                     }`}
                   >
@@ -294,14 +298,14 @@ function RankingPage({
             <button
               type="button"
               onClick={onRestart}
-              className="rounded-full bg-white px-6 py-4 text-sm font-black text-slate-950 transition hover:bg-cyan-100"
+              className="w-full rounded-full bg-white px-6 py-4 text-sm font-black text-slate-950 transition hover:bg-cyan-100 sm:w-auto"
             >
               🔄 Intentar nueva estrategia
             </button>
             <button
               type="button"
               onClick={onBack}
-              className="rounded-full border border-amber-200/35 bg-amber-200/10 px-6 py-4 text-sm font-black text-amber-100 transition hover:border-amber-100 hover:bg-amber-200/20"
+              className="w-full rounded-full border border-amber-200/35 bg-amber-200/10 px-6 py-4 text-sm font-black text-amber-100 transition hover:border-amber-100 hover:bg-amber-200/20 sm:w-auto"
             >
               {hasPreviousResult ? '← Volver al resultado' : '← Volver'}
             </button>

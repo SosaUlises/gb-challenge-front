@@ -346,21 +346,21 @@ function GamePage({ initialGame, onRestart, onViewRanking }: GamePageProps) {
   return (
     <main className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.12),transparent_34%),linear-gradient(135deg,#020617_0%,#0f172a_48%,#020617_100%)] text-white">
       <section className="mx-auto max-w-7xl px-5 py-6 md:px-6 md:py-8">
-        <header className="flex items-start justify-between gap-4 text-xs text-slate-500">
-          <div className="pt-8">
+        <header className="flex flex-col gap-4 text-xs text-slate-500 sm:flex-row sm:items-start sm:justify-between">
+          <div className="pt-0 sm:pt-8">
             <p className="font-black uppercase tracking-[0.18em] text-slate-300">
               Escenario {game.currentScenarioOrder} de {totalScenarios}
             </p>
           </div>
 
-          <div className="text-right">
+          <div className="text-left sm:text-right">
             <p className="text-sm font-black text-amber-100">
               🏆 {game.playerName}
             </p>
             <p className="mt-1 text-[0.65rem] font-black uppercase tracking-[0.16em] text-slate-500">
               Director General
             </p>
-            <div className="mt-2 flex flex-wrap justify-end gap-x-3 gap-y-1">
+            <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 sm:justify-end">
               {statDefinitions.map((stat) => {
                 const statColor = getStatColor(game[stat.key])
 
@@ -399,7 +399,7 @@ function GamePage({ initialGame, onRestart, onViewRanking }: GamePageProps) {
         {scenario && scenarioContext && (
           <section
             key={scenarioAnimationKey}
-            className="scenario-transition mt-10 md:mt-12"
+            className="scenario-transition mt-8 md:mt-12"
           >
             <article className="max-w-6xl">
               <div className="flex flex-wrap items-center gap-3">
@@ -419,16 +419,16 @@ function GamePage({ initialGame, onRestart, onViewRanking }: GamePageProps) {
                 </span>
               </div>
 
-              <h1 className="mt-6 max-w-6xl text-5xl font-black uppercase leading-[0.86] tracking-normal text-white md:text-7xl lg:text-[7rem]">
+              <h1 className="mt-5 max-w-6xl text-[3.25rem] font-black uppercase leading-[0.86] tracking-normal text-white sm:text-6xl md:text-7xl lg:text-[7rem]">
                 {scenario.title}
               </h1>
 
-              <p className="mt-7 max-w-4xl text-lg font-medium leading-8 text-slate-300 md:text-xl md:leading-9">
+              <p className="mt-6 max-w-4xl text-base font-medium leading-7 text-slate-300 sm:text-lg md:text-xl md:leading-9">
                 {scenario.description}
               </p>
             </article>
 
-            <section className="mt-12">
+            <section className="mt-9 md:mt-12">
               <p className="mb-4 text-sm font-black uppercase tracking-[0.18em] text-slate-300">
                 Elegí tu respuesta estratégica
               </p>
