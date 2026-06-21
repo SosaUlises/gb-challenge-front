@@ -23,6 +23,7 @@ function App() {
   if (view === 'ranking') {
     return (
       <RankingPage
+        hasPreviousResult={Boolean(game)}
         onBack={() => setView(game ? 'game' : 'home')}
         onRestart={handleRestart}
       />
