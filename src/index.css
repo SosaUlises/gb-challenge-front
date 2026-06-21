@@ -6,12 +6,14 @@
 
 html {
   background: #020617;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   background: #020617;
+  overflow-x: hidden;
   font-family:
     Sora, "Plus Jakarta Sans", Manrope, ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -89,5 +91,23 @@ input {
 @media (prefers-reduced-motion: reduce) {
   .brand-marquee-track {
     animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .brand-marquee::before,
+  .brand-marquee::after {
+    width: 48px;
+  }
+
+  .brand-marquee-track-premium {
+    gap: 36px;
+    padding-block: 8px;
+  }
+
+  .brand-logo-premium {
+    max-width: 112px;
+    height: 38px;
+    max-height: 38px;
   }
 }
