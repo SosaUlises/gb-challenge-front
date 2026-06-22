@@ -5,6 +5,7 @@ import type { GameSession } from '../types/game'
 
 type HomePageProps = {
   onGameStarted: (game: GameSession) => void
+  onViewRanking: () => void
 }
 
 const brandLogos = [
@@ -60,7 +61,7 @@ const managementAreas = [
   },
 ]
 
-function HomePage({ onGameStarted }: HomePageProps) {
+function HomePage({ onGameStarted, onViewRanking }: HomePageProps) {
   const [playerName, setPlayerName] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -102,10 +103,15 @@ function HomePage({ onGameStarted }: HomePageProps) {
                 Simulador de Gestión Empresarial
               </p>
             </div>
-            <div className="hidden items-center gap-2 rounded-full border border-cyan-200/30 bg-slate-950/55 px-4 py-2 text-sm font-bold text-cyan-100 backdrop-blur sm:flex">
+            <button
+              type="button"
+              onClick={onViewRanking}
+              className="hidden items-center gap-2 rounded-full border border-cyan-200/30 bg-slate-950/55 px-4 py-2 text-sm font-bold text-cyan-100 backdrop-blur transition hover:border-cyan-100 hover:bg-cyan-200/10 hover:text-white sm:flex"
+              aria-label="Ver ranking global"
+            >
               <span aria-hidden="true">🏆</span>
               Ranking global
-            </div>
+            </button>
           </header>
 
           <div className="grid flex-1 gap-7 py-8 sm:py-10 lg:grid-cols-[1fr_340px] lg:items-center">

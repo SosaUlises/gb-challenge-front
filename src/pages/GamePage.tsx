@@ -62,6 +62,20 @@ function getStatColor(value: number) {
   return 'text-emerald-100'
 }
 
+function removeTitleAccents(title: string) {
+  return title
+    .replace(/[áàâä]/g, 'a')
+    .replace(/[ÁÀÂÄ]/g, 'A')
+    .replace(/[éèêë]/g, 'e')
+    .replace(/[ÉÈÊË]/g, 'E')
+    .replace(/[íìîï]/g, 'i')
+    .replace(/[ÍÌÎÏ]/g, 'I')
+    .replace(/[óòôö]/g, 'o')
+    .replace(/[ÓÒÔÖ]/g, 'O')
+    .replace(/[úùûü]/g, 'u')
+    .replace(/[ÚÙÛÜ]/g, 'U')
+}
+
 function getScenarioChips(topic: string, title: string, description: string) {
   const text = `${topic} ${title} ${description}`.toLowerCase()
   const chips: string[] = []
@@ -429,7 +443,7 @@ function GamePage({
               </div>
 
               <h1 className="mt-5 max-w-6xl text-[3.25rem] font-black uppercase leading-[0.86] tracking-normal text-white sm:text-6xl md:text-7xl lg:text-[7rem]">
-                {scenario.title}
+                {removeTitleAccents(scenario.title)}
               </h1>
 
               <p className="mt-6 max-w-4xl text-base font-medium leading-7 text-slate-300 sm:text-lg md:text-xl md:leading-9">

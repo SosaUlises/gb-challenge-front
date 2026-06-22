@@ -28,7 +28,12 @@ function App() {
   }
 
   if (!game || view === 'home') {
-    return <HomePage onGameStarted={handleGameStarted} />
+    return (
+      <HomePage
+        onGameStarted={handleGameStarted}
+        onViewRanking={() => setView('ranking')}
+      />
+    )
   }
 
   return (

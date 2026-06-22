@@ -105,7 +105,11 @@ function RankingPage({ onRestart }: RankingPageProps) {
     [ranking]
   )
   const topEntry = sortedRanking[0]
-  const podium = sortedRanking.slice(0, 3)
+  const podiumSlots = podiumStyles.map((style, index) => ({
+    entry: sortedRanking[index] ?? null,
+    rankingIndex: index,
+    style,
+  }))
   const hasRanking = sortedRanking.length > 0
 
   return (
@@ -192,15 +196,10 @@ function RankingPage({ onRestart }: RankingPageProps) {
                 Podio de gestión
               </p>
               <div className="mt-5 grid gap-4 lg:grid-cols-[0.9fr_1.15fr_0.9fr] lg:items-end">
-                {podium.map((entry, visualIndex) => {
-                  if (!entry) return null
-
-                  const rankingIndex = sortedRanking.indexOf(entry)
-                  const style = podiumStyles[rankingIndex] ?? podiumStyles[1]
-
+                {podiumSlots.map(({ entry, rankingIndex, style }, visualIndex) => {
                   return (
                     <article
-                      key={entry.id ?? `${getPlayerName(entry)}-${rankingIndex}`}
+                      key={entry?.id ?? `empty-podium-${rankingIndex}`}
                       className={`rounded-2xl border p-5 sm:rounded-3xl sm:p-6 ${style.className} ${
                         visualIndex === 0 ? 'lg:order-2' : ''
                       } ${
@@ -217,17 +216,35 @@ function RankingPage({ onRestart }: RankingPageProps) {
                           {style.label}
                         </p>
                       </div>
-                      <h2
-                        className={`mt-6 font-black leading-tight text-white ${style.nameClassName}`}
-                      >
-                        {getPlayerName(entry)}
-                      </h2>
-                      <p className="mt-4 text-4xl font-black tabular-nums text-amber-100">
-                        {getScore(entry)}
-                      </p>
-                      <p className="mt-2 text-sm font-bold text-slate-300">
-                        {getRating(entry)}
-                      </p>
+                      {entry ? (
+                        <>
+                          <h2
+                            className={`mt-6 font-black leading-tight text-white ${style.nameClassName}`}
+                          >
+                            {getPlayerName(entry)}
+                          </h2>
+                          <p className="mt-4 text-4xl font-black tabular-nums text-amber-100">
+                            {getScore(entry)}
+                          </p>
+                          <p className="mt-2 text-sm font-bold text-slate-300">
+                            {getRating(entry)}
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <h2
+                            className={`mt-6 font-black leading-tight text-slate-500 ${style.nameClassName}`}
+                          >
+                            Puesto disponible
+                          </h2>
+                          <p className="mt-4 text-4xl font-black tabular-nums text-slate-600">
+                            --
+                          </p>
+                          <p className="mt-2 text-sm font-bold text-slate-500">
+                            Esperando director
+                          </p>
+                        </>
+                      )}
                     </article>
                   )
                 })}
