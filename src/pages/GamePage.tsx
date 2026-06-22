@@ -2,12 +2,15 @@ import { useState } from 'react'
 import { chooseOption } from '../api/gameApi'
 import DecisionCard from '../components/DecisionCard'
 import DecisionResultModal from '../components/DecisionResultModal'
+import GameIntroModal from '../components/GameIntroModal'
 import ResultPage from './ResultPage'
 import type { DecisionHistoryEntry, GameSession } from '../types/game'
 import { getQuarter } from '../utils/gameProgress'
 
 type GamePageProps = {
   initialGame: GameSession
+  showIntro: boolean
+  onIntroClose: () => void
   onRestart: () => void
   onViewRanking: () => void
 }
@@ -266,7 +269,13 @@ function getStatDeltas(previousGame: GameSession, nextGame: GameSession) {
     .filter((stat) => stat.delta !== 0)
 }
 
-function GamePage({ initialGame, onRestart, onViewRanking }: GamePageProps) {
+function GamePage({
+  initialGame,
+  showIntro,
+  onIntroClose,
+  onRestart,
+  onViewRanking,
+}: GamePageProps) {
   const [game, setGame] = useState(initialGame)
   const [decisionResult, setDecisionResult] = useState<DecisionResult | null>(
     null
@@ -438,7 +447,9 @@ function GamePage({ initialGame, onRestart, onViewRanking }: GamePageProps) {
                     key={option.id}
                     option={option}
                     index={index}
-                    disabled={isLoading || Boolean(decisionResult)}
+                    disabled={
+                      isLoading || Boolean(decisionResult) || showIntro
+                    }
                     onChoose={handleChooseOption}
                   />
                 ))}
@@ -455,6 +466,8 @@ function GamePage({ initialGame, onRestart, onViewRanking }: GamePageProps) {
             onContinue={() => setDecisionResult(null)}
           />
         )}
+
+        {showIntro && <GameIntroModal onStart={onIntroClose} />}
       </section>
     </main>
   )

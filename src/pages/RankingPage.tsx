@@ -302,13 +302,6 @@ function RankingPage({
             >
               🔄 Intentar nueva estrategia
             </button>
-            <button
-              type="button"
-              onClick={onBack}
-              className="w-full rounded-full border border-amber-200/35 bg-amber-200/10 px-6 py-4 text-sm font-black text-amber-100 transition hover:border-amber-100 hover:bg-amber-200/20 sm:w-auto"
-            >
-              {hasPreviousResult ? '← Volver al resultado' : '← Volver'}
-            </button>
           </div>
         </footer>
       </section>

@@ -9,14 +9,17 @@ type AppView = 'home' | 'game' | 'ranking'
 function App() {
   const [game, setGame] = useState<GameSession | null>(null)
   const [view, setView] = useState<AppView>('home')
+  const [showGameIntro, setShowGameIntro] = useState(false)
 
   function handleGameStarted(newGame: GameSession) {
     setGame(newGame)
+    setShowGameIntro(true)
     setView('game')
   }
 
   function handleRestart() {
     setGame(null)
+    setShowGameIntro(false)
     setView('home')
   }
 
@@ -37,6 +40,8 @@ function App() {
   return (
     <GamePage
       initialGame={game}
+      showIntro={showGameIntro}
+      onIntroClose={() => setShowGameIntro(false)}
       onRestart={handleRestart}
       onViewRanking={() => setView('ranking')}
     />
