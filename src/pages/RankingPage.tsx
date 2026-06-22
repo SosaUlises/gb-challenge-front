@@ -3,8 +3,6 @@ import { getRanking } from '../api/gameApi'
 import type { RankingEntry } from '../types/game'
 
 type RankingPageProps = {
-  hasPreviousResult?: boolean
-  onBack: () => void
   onRestart: () => void
 }
 
@@ -68,11 +66,7 @@ function getPositionLabel(index: number) {
   return `#${index + 1}`
 }
 
-function RankingPage({
-  hasPreviousResult = false,
-  onBack,
-  onRestart,
-}: RankingPageProps) {
+function RankingPage({ onRestart }: RankingPageProps) {
   const [ranking, setRanking] = useState<RankingEntry[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
