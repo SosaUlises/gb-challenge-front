@@ -1,73 +1,53 @@
-# React + TypeScript + Vite
+# Grupo Blanco Challenge - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Simulador empresarial desarrollado para la materia Organización y Gestión Empresaria.
 
-Currently, two official plugins are available:
+El jugador asume el rol de Director General de Grupo Blanco, una empresa argentina dedicada a la importación, distribución y gestión comercial de marcas internacionales de calzado.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+A lo largo de 15 escenarios estratégicos deberá tomar decisiones relacionadas con:
 
-## React Compiler
+* Importaciones
+* Logística
+* Ecommerce
+* Mercado Libre
+* Franquicias
+* Showrooms
+* Gestión de marcas
+* Recursos humanos
+* Planeamiento estratégico
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Cada decisión impacta sobre cinco indicadores clave:
 
-## Expanding the ESLint configuration
+* 💰 Rentabilidad
+* 👥 Clientes
+* 😊 Clima Organizacional
+* ⭐ Imagen de Marca
+* 🚚 Eficiencia Operativa
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Al finalizar la partida, el jugador recibe una evaluación de gestión y compite en un ranking global.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tecnologías
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Características
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* Simulador empresarial interactivo
+* Tutorial inicial
+* Sistema de decisiones con consecuencias
+* Indicadores de gestión en tiempo real
+* Ranking global
+* Diseño responsive
+* Integración con API .NET
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Demo
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+https://gb-challenge-front.vercel.app
+
+## Backend
+
+https://gb-challenge-api.onrender.com/swagger/index.html
+
