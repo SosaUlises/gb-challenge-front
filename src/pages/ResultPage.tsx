@@ -5,6 +5,7 @@ import type {
   GameSession,
   RankingEntry,
 } from '../types/game'
+import { getMonthName } from '../utils/gameProgress'
 
 type ResultPageProps = {
   game: GameSession
@@ -129,12 +130,11 @@ function ResultPage({
   onViewRanking,
 }: ResultPageProps) {
   const [ranking, setRanking] = useState<RankingEntry[]>([])
-  const [rankingStatus, setRankingStatus] = useState<'idle' | 'error'>('idle')
 
   useEffect(() => {
     getRanking()
       .then((entries) => setRanking(entries))
-      .catch(() => setRankingStatus('error'))
+      .catch(() => setRanking([]))
   }, [])
 
   const stats = statDefinitions.map((stat) => ({
@@ -149,12 +149,17 @@ function ResultPage({
     stat.value < worst.value ? stat : worst
   )
   const directorProfile = getDirectorProfile(game)
+  const resultSummary = game.wasCompanySold
+    ? `Vendiste Grupo Blanco en ${getMonthName(game.finishedAtMonth)}. El resultado refleja el valor que construiste hasta ese momento.`
+    : directorProfile.summary
+  const visibleQuarters = game.wasCompanySold
+    ? quarters.filter((quarter) => quarter.from <= game.finishedAtMonth)
+    : quarters
 
   const rankingSummary = useMemo(() => {
     if (ranking.length === 0) {
       return {
         position: null,
-        topPercent: null,
       }
     }
 
@@ -172,15 +177,8 @@ function ResultPage({
         ? matchingIndex + 1
         : sortedRanking.filter((entry) => getEntryScore(entry) > game.finalScore)
             .length + 1
-    const totalPlayers = Math.max(sortedRanking.length, computedPosition)
-    const topPercent = Math.max(
-      1,
-      Math.round((computedPosition / totalPlayers) * 100)
-    )
-
     return {
       position: computedPosition,
-      topPercent,
     }
   }, [game.finalScore, game.id, game.playerName, ranking])
 
@@ -199,15 +197,15 @@ function ResultPage({
         <header className="border-b border-white/10 pb-8">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.28em] text-amber-100">
-              GESTIÓN FINALIZADA
+              {game.wasCompanySold ? 'EMPRESA VENDIDA' : 'GESTIÓN FINALIZADA'}
             </p>
             <h1 className="mt-4 max-w-5xl text-[2.65rem] font-black uppercase leading-[0.9] text-white sm:text-5xl md:text-7xl lg:text-8xl">
               {directorProfile.title}
             </h1>
             <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-slate-300 sm:text-lg md:text-xl md:leading-8">
-              {directorProfile.summary}
+              {resultSummary}
             </p>
-            <div className="mt-7 grid gap-3 sm:grid-cols-3">
+            <div className="mt-7 grid gap-3 sm:grid-cols-2">
               <div className="rounded-2xl border border-amber-200/25 bg-amber-200/[0.07] px-4 py-4 sm:px-5">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-100">
                   Puntaje final
@@ -224,18 +222,6 @@ function ResultPage({
                   {rankingSummary.position ? `#${rankingSummary.position}` : '-'}
                 </p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-4 sm:px-5">
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
-                  Rendimiento
-                </p>
-                <p className="mt-2 text-4xl font-black leading-none tabular-nums">
-                  {rankingSummary.topPercent
-                    ? `Top ${rankingSummary.topPercent}%`
-                    : rankingStatus === 'error'
-                      ? '-'
-                      : '...'}
-                </p>
-              </div>
             </div>
           </div>
         </header>
@@ -246,6 +232,8 @@ function ResultPage({
               Perfil de gestión
             </p>
             <p className="mt-4 max-w-4xl text-base font-medium leading-7 text-slate-200 sm:text-lg sm:leading-8">
+              {game.wasCompanySold &&
+                `Cerraste la operación en ${getMonthName(game.finishedAtMonth)}. `}
               {directorProfile.profile}
             </p>
           </article>
@@ -285,10 +273,10 @@ function ResultPage({
 
         <section className="mt-8">
           <p className="text-xs font-black uppercase tracking-[0.24em] text-slate-400">
-            Resumen del año
+            {game.wasCompanySold ? 'Resumen hasta la venta' : 'Resumen del año'}
           </p>
           <div className="mt-4 grid gap-3 lg:grid-cols-4">
-            {quarters.map((quarter) => (
+            {visibleQuarters.map((quarter) => (
               <article
                 key={quarter.label}
                 className="rounded-xl border border-white/10 bg-white/[0.025] p-5"

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { getRanking } from '../api/gameApi'
 import type { RankingEntry } from '../types/game'
+import { getMonthName } from '../utils/gameProgress'
 
 type RankingPageProps = {
   onRestart: () => void
@@ -40,6 +41,14 @@ function getScore(entry: RankingEntry) {
 
 function getRating(entry: RankingEntry) {
   return entry.finalRating ?? entry.rating ?? 'Sin perfil'
+}
+
+function getOutcome(entry: RankingEntry) {
+  if (entry.wasCompanySold) {
+    return `Empresa vendida · ${getMonthName(entry.finishedAtMonth ?? 1)}`
+  }
+
+  return 'Año completado'
 }
 
 function getDate(entry: RankingEntry) {
@@ -229,6 +238,9 @@ function RankingPage({ onRestart }: RankingPageProps) {
                           <p className="mt-2 text-sm font-bold text-slate-300">
                             {getRating(entry)}
                           </p>
+                          <p className="mt-2 text-xs font-black uppercase tracking-[0.12em] text-slate-500">
+                            {getOutcome(entry)}
+                          </p>
                         </>
                       ) : (
                         <>
@@ -288,9 +300,14 @@ function RankingPage({ onRestart }: RankingPageProps) {
                     <p className="text-2xl font-black tabular-nums text-white">
                       {getScore(entry)}
                     </p>
-                    <p className="w-fit rounded-full border border-cyan-200/20 bg-cyan-200/[0.06] px-3 py-1.5 text-xs font-black text-cyan-100">
-                      {getRating(entry)}
-                    </p>
+                    <div>
+                      <p className="w-fit rounded-full border border-cyan-200/20 bg-cyan-200/[0.06] px-3 py-1.5 text-xs font-black text-cyan-100">
+                        {getRating(entry)}
+                      </p>
+                      <p className="mt-2 text-xs font-bold text-slate-500">
+                        {getOutcome(entry)}
+                      </p>
+                    </div>
                     <p className="text-sm font-semibold text-slate-500 max-md:hidden">
                       {getDate(entry)}
                     </p>

@@ -24,7 +24,7 @@ Cada decisión impacta sobre cinco indicadores clave:
 * ⭐ Imagen de Marca
 * 🚚 Eficiencia Operativa
 
-Al finalizar la partida, el jugador recibe una evaluación de gestión y compite en un ranking global.
+Al finalizar la partida o vender la empresa anticipadamente, el jugador recibe una evaluación de gestión y compite en un ranking global.
 
 ## Tecnologías
 

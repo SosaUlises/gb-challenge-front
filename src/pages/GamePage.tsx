@@ -1,10 +1,15 @@
-import { useState } from 'react'
-import { chooseOption } from '../api/gameApi'
+import { useMemo, useState } from 'react'
+import { chooseOption, sellCompany } from '../api/gameApi'
 import DecisionCard from '../components/DecisionCard'
 import DecisionResultModal from '../components/DecisionResultModal'
 import GameIntroModal from '../components/GameIntroModal'
+import SellCompanyModal from '../components/SellCompanyModal'
 import ResultPage from './ResultPage'
-import type { DecisionHistoryEntry, GameSession } from '../types/game'
+import type {
+  DecisionHistoryEntry,
+  DecisionOption,
+  GameSession,
+} from '../types/game'
 import { getMonthName, getQuarter } from '../utils/gameProgress'
 
 type GamePageProps = {
@@ -283,6 +288,36 @@ function getStatDeltas(previousGame: GameSession, nextGame: GameSession) {
     .filter((stat) => stat.delta !== 0)
 }
 
+function getSeededNumber(value: string) {
+  let hash = 0
+
+  for (let index = 0; index < value.length; index++) {
+    hash = (hash * 31 + value.charCodeAt(index)) >>> 0
+  }
+
+  return hash || 1
+}
+
+function getShuffledOptions(options: DecisionOption[], seed: string) {
+  const shuffledOptions = [...options]
+  let state = getSeededNumber(seed)
+
+  function nextRandom() {
+    state = (state * 1664525 + 1013904223) >>> 0
+    return state / 4294967296
+  }
+
+  for (let index = shuffledOptions.length - 1; index > 0; index--) {
+    const randomIndex = Math.floor(nextRandom() * (index + 1))
+    const currentOption = shuffledOptions[index]
+
+    shuffledOptions[index] = shuffledOptions[randomIndex]
+    shuffledOptions[randomIndex] = currentOption
+  }
+
+  return shuffledOptions
+}
+
 function GamePage({
   initialGame,
   showIntro,
@@ -301,6 +336,8 @@ function GamePage({
     initialGame.currentScenarioOrder
   )
   const [isLoading, setIsLoading] = useState(false)
+  const [isSellModalOpen, setIsSellModalOpen] = useState(false)
+  const [isSelling, setIsSelling] = useState(false)
 
   async function handleChooseOption(optionId: string) {
     setIsLoading(true)
@@ -340,6 +377,27 @@ function GamePage({
     }
   }
 
+  async function handleSellCompany() {
+    setIsSelling(true)
+
+    try {
+      const finishedGame = await sellCompany({ gameSessionId: game.id })
+      setGame(finishedGame)
+      setIsSellModalOpen(false)
+    } catch {
+      alert('No se pudo vender la empresa')
+    } finally {
+      setIsSelling(false)
+    }
+  }
+
+  const scenario = game.currentScenario
+  const displayedOptions = useMemo(() => {
+    if (!scenario) return []
+
+    return getShuffledOptions(scenario.options, `${game.id}-${scenario.id}`)
+  }, [game.id, scenario])
+
   if (game.isFinished && !decisionResult) {
     return (
       <ResultPage
@@ -351,7 +409,6 @@ function GamePage({
     )
   }
 
-  const scenario = game.currentScenario
   const currentMonth = scenario?.month || game.currentScenarioOrder
   const quarter = getQuarter(currentMonth)
   const progress = Math.round((game.currentScenarioOrder / totalScenarios) * 100)
@@ -366,12 +423,13 @@ function GamePage({
   const scenarioChips = scenario
     ? getScenarioChips(scenario.topic, scenario.title, scenario.description)
     : []
+  const canSellCompany = game.currentScenarioOrder > 1
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.12),transparent_34%),linear-gradient(135deg,#020617_0%,#0f172a_48%,#020617_100%)] text-white">
       <section className="mx-auto max-w-7xl px-5 py-6 md:px-6 md:py-8">
-        <header className="flex flex-col gap-4 text-xs text-slate-500 sm:flex-row sm:items-start sm:justify-between">
-          <div className="pt-0 sm:pt-8">
+        <header className="flex flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <div>
             <p className="font-black uppercase tracking-[0.18em] text-slate-300">
               {getMonthName(currentMonth)} - Mes {game.currentScenarioOrder} de {totalScenarios}
             </p>
@@ -384,25 +442,45 @@ function GamePage({
             <p className="mt-1 text-[0.65rem] font-black uppercase tracking-[0.16em] text-slate-500">
               Director General
             </p>
-            <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 sm:justify-end">
-              {statDefinitions.map((stat) => {
-                const statColor = getStatColor(game[stat.key])
+            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2 sm:justify-end">
+              <button
+                type="button"
+                onClick={() => setIsSellModalOpen(true)}
+                disabled={
+                  !canSellCompany ||
+                  isLoading ||
+                  Boolean(decisionResult) ||
+                  showIntro
+                }
+                title={
+                  canSellCompany
+                    ? 'Finalizar la gestión con los indicadores actuales'
+                    : 'Disponible después de tomar la primera decisión'
+                }
+                className="rounded-full border border-red-200/25 bg-red-200/[0.06] px-3 py-1.5 text-[0.65rem] font-black uppercase tracking-[0.1em] text-red-100 transition hover:border-red-100/60 hover:bg-red-200/12 disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/[0.025] disabled:text-slate-600"
+              >
+                Vender empresa
+              </button>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                {statDefinitions.map((stat) => {
+                  const statColor = getStatColor(game[stat.key])
 
-                return (
-                  <span
-                    key={stat.key}
-                    className="inline-flex items-center gap-1.5 text-xs font-black"
-                    title={stat.label}
-                  >
-                    <span className="text-base leading-none" aria-hidden="true">
-                      {stat.icon}
+                  return (
+                    <span
+                      key={stat.key}
+                      className="inline-flex items-center gap-1.5 text-xs font-black"
+                      title={stat.label}
+                    >
+                      <span className="text-base leading-none" aria-hidden="true">
+                        {stat.icon}
+                      </span>
+                      <span className={`tabular-nums ${statColor}`}>
+                        {game[stat.key]}
+                      </span>
                     </span>
-                    <span className={`tabular-nums ${statColor}`}>
-                      {game[stat.key]}
-                    </span>
-                  </span>
-                )
-              })}
+                  )
+                })}
+              </div>
             </div>
           </div>
         </header>
@@ -443,7 +521,7 @@ function GamePage({
                 </span>
               </div>
 
-              <h1 className="mt-5 max-w-6xl text-[3.25rem] font-black uppercase leading-[0.86] tracking-normal text-white sm:text-6xl md:text-7xl lg:text-[7rem]">
+              <h1 className="mt-5 max-w-6xl text-[2.65rem] font-black uppercase leading-[0.92] tracking-normal text-white sm:text-5xl md:text-6xl lg:text-[5.75rem]">
                 {removeTitleAccents(scenario.title)}
               </h1>
 
@@ -457,7 +535,7 @@ function GamePage({
                 Elegí tu respuesta estratégica
               </p>
               <div className="grid gap-6 lg:grid-cols-3">
-                {scenario.options.map((option, index) => (
+                {displayedOptions.map((option, index) => (
                   <DecisionCard
                     key={option.id}
                     option={option}
@@ -479,6 +557,15 @@ function GamePage({
             consequence={decisionResult.consequence}
             deltas={decisionResult.deltas}
             onContinue={() => setDecisionResult(null)}
+          />
+        )}
+
+        {isSellModalOpen && (
+          <SellCompanyModal
+            month={currentMonth}
+            isSubmitting={isSelling}
+            onCancel={() => setIsSellModalOpen(false)}
+            onConfirm={handleSellCompany}
           />
         )}
 

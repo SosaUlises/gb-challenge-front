@@ -3,6 +3,7 @@ import type {
   DecisionResult,
   GameSession,
   RankingEntry,
+  SellCompanyRequest,
   StartGameRequest,
 } from '../types/game'
 
@@ -48,6 +49,24 @@ export async function chooseOption(
 
   if (!response.ok) {
     throw new Error('No se pudo elegir la opción')
+  }
+
+  return response.json()
+}
+
+export async function sellCompany(
+  request: SellCompanyRequest
+): Promise<GameSession> {
+  const response = await fetch(`${API_URL}/game/sell-company`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(request),
+  })
+
+  if (!response.ok) {
+    throw new Error('No se pudo vender la empresa')
   }
 
   return response.json()

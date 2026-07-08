@@ -23,7 +23,7 @@ const briefingSteps = [
   {
     icon: '🏆',
     title: 'Competí en el ranking',
-    text: 'Al finalizar, tu gestión queda registrada en el ranking global.',
+    text: 'Al completar el año o vender la empresa, tu resultado queda registrado.',
   },
 ]
 

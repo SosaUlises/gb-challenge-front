@@ -26,6 +26,8 @@ export type GameSession = {
   isFinished: boolean
   finalScore: number
   finalRating: string
+  wasCompanySold: boolean
+  finishedAtMonth: number
   currentScenario: Scenario | null
 }
 
@@ -44,6 +46,10 @@ export type ChooseOptionRequest = {
   optionId: string
 }
 
+export type SellCompanyRequest = {
+  gameSessionId: string
+}
+
 export type DecisionResult = {
   consequence: string
   gameSession: GameSession
@@ -57,6 +63,8 @@ export type RankingEntry = {
   finalScore?: number
   rating?: string
   finalRating?: string
+  wasCompanySold?: boolean
+  finishedAtMonth?: number
   createdAt?: string
   date?: string
   playedAt?: string
