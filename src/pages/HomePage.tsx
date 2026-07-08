@@ -241,13 +241,7 @@ function HomePage({ onGameStarted, onViewRanking }: HomePageProps) {
         <div className="mx-auto max-w-7xl overflow-hidden rounded-2xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-2xl shadow-slate-950/50 sm:p-7 md:p-10">
           <div className="grid gap-8 lg:grid-cols-[1fr_420px] lg:items-end">
             <div>
-              <p className="text-5xl sm:text-6xl" aria-hidden="true">
-                🏆
-              </p>
-              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-100">
-                Ranking global
-              </p>
-              <h2 className="mt-4 max-w-4xl text-[2rem] font-black uppercase leading-none text-white sm:text-4xl md:text-7xl">
+              <h2 className="max-w-4xl text-[2rem] font-black uppercase leading-none text-white sm:text-4xl md:text-7xl">
                 ¿Podrás superar a otros directores?
               </h2>
               <p className="mt-4 text-lg font-bold text-cyan-100 sm:mt-5 sm:text-xl">
