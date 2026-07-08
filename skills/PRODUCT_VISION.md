@@ -18,7 +18,7 @@ No debe sentirse como:
 
 ## Objetivo del juego
 
-El jugador debe tomar decisiones estratégicas durante 15 escenarios.
+El jugador debe tomar decisiones estratégicas durante 12 meses de gestión.
 
 Cada decisión impacta sobre indicadores de gestión:
 

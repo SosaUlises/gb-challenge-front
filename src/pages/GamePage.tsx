@@ -5,7 +5,7 @@ import DecisionResultModal from '../components/DecisionResultModal'
 import GameIntroModal from '../components/GameIntroModal'
 import ResultPage from './ResultPage'
 import type { DecisionHistoryEntry, GameSession } from '../types/game'
-import { getQuarter } from '../utils/gameProgress'
+import { getMonthName, getQuarter } from '../utils/gameProgress'
 
 type GamePageProps = {
   initialGame: GameSession
@@ -15,7 +15,7 @@ type GamePageProps = {
   onViewRanking: () => void
 }
 
-const totalScenarios = 15
+const totalScenarios = 12
 
 const statDefinitions = [
   { key: 'rentability', label: 'Rentabilidad', icon: '💰' },
@@ -325,7 +325,7 @@ function GamePage({
         setDecisionHistory((history) => [
           ...history,
           {
-            scenarioOrder: currentScenario.order,
+            scenarioOrder: currentScenario.month || game.currentScenarioOrder,
             scenarioTitle: currentScenario.title,
             optionText: selectedOption.text,
           },
@@ -352,7 +352,8 @@ function GamePage({
   }
 
   const scenario = game.currentScenario
-  const quarter = getQuarter(game.currentScenarioOrder)
+  const currentMonth = scenario?.month || game.currentScenarioOrder
+  const quarter = getQuarter(currentMonth)
   const progress = Math.round((game.currentScenarioOrder / totalScenarios) * 100)
   const isFinalStretch = quarter.id === 'Q4'
   const scenarioContext = scenario
@@ -372,7 +373,7 @@ function GamePage({
         <header className="flex flex-col gap-4 text-xs text-slate-500 sm:flex-row sm:items-start sm:justify-between">
           <div className="pt-0 sm:pt-8">
             <p className="font-black uppercase tracking-[0.18em] text-slate-300">
-              Escenario {game.currentScenarioOrder} de {totalScenarios}
+              {getMonthName(currentMonth)} - Mes {game.currentScenarioOrder} de {totalScenarios}
             </p>
           </div>
 

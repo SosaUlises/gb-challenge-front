@@ -23,7 +23,7 @@ const brandLogos = [
 ]
 
 const heroMetrics = [
-  { icon: '📈', value: '15', label: 'Decisiones' },
+  { icon: '📈', value: '12', label: 'Meses' },
   { icon: '💰', value: '5', label: 'Indicadores' },
   { icon: '📅', value: '1', label: 'Año de gestión' },
 ]

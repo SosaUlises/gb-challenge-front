@@ -4,7 +4,7 @@ Simulador empresarial desarrollado para la materia Organización y Gestión Empr
 
 El jugador asume el rol de Director General de Grupo Blanco, una empresa argentina dedicada a la importación, distribución y gestión comercial de marcas internacionales de calzado.
 
-A lo largo de 15 escenarios estratégicos deberá tomar decisiones relacionadas con:
+A lo largo de 12 meses de gestión deberá tomar decisiones relacionadas con:
 
 * Importaciones
 * Logística

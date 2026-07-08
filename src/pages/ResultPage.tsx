@@ -22,10 +22,10 @@ const statDefinitions = [
 ] as const
 
 const quarters = [
-  { label: 'Plan comercial', from: 1, to: 4 },
-  { label: 'Importación y stock', from: 5, to: 8 },
-  { label: 'Expansión comercial', from: 9, to: 12 },
-  { label: 'Consolidación de marca', from: 13, to: 15 },
+  { label: 'Q1 - Plan comercial', from: 1, to: 3 },
+  { label: 'Q2 - Importacion y stock', from: 4, to: 6 },
+  { label: 'Q3 - Canales y equipos', from: 7, to: 9 },
+  { label: 'Q4 - Cierre y expansion', from: 10, to: 12 },
 ]
 
 function getEntryScore(entry: RankingEntry) {

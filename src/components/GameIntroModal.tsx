@@ -7,8 +7,8 @@ type GameIntroModalProps = {
 const briefingSteps = [
   {
     icon: '🚨',
-    title: 'Leé el escenario',
-    text: 'Cada ronda presenta una situación crítica de negocio.',
+    title: 'Leé el mes',
+    text: 'Cada mes presenta una situación crítica de negocio.',
   },
   {
     icon: '🛡',
@@ -108,8 +108,8 @@ function GameIntroModal({ onStart }: GameIntroModalProps) {
               Bienvenido, Director General
             </h2>
             <p className="mt-4 max-w-2xl text-base font-medium leading-7 text-slate-300 sm:text-lg">
-              Durante 15 escenarios vas a tomar decisiones que modifican el
-              futuro de Grupo Blanco.
+              Durante 12 meses vas a tomar decisiones que modifican el futuro
+              de Grupo Blanco.
             </p>
 
             <div className="mt-4 rounded-xl border border-amber-200/25 bg-amber-200/[0.06] p-3.5">

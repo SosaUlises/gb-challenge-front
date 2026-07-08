@@ -19,14 +19,14 @@ Ejemplos:
 
 La partida representa un año de gestión.
 
-Debe organizarse en 15 escenarios.
+Debe organizarse en 12 meses de gestión.
 
 El progreso puede dividirse así:
 
-- Q1: Planificación comercial y compras
-- Q2: Importación, stock y preventa mayorista
-- Q3: Temporada alta, ecommerce y retail
-- Q4: cierre anual, marca y expansión
+- Q1: planificación comercial y compras
+- Q2: importación, stock y preventa mayorista
+- Q3: canales, retail, ecommerce y equipos
+- Q4: competencia, temporada alta y cierre anual
 
 ## Decisiones
 

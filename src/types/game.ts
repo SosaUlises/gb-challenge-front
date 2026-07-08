@@ -6,6 +6,8 @@ export type DecisionOption = {
 export type Scenario = {
   id: string
   order: number
+  month: number
+  quarter: string
   title: string
   description: string
   topic: string
